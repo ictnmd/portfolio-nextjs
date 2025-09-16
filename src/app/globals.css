@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+:root {
+  --font-primary: 'Dongle', sans-serif;
+  --base-font-size: 18px;
+  /* Initial theme values (will be overridden by ThemeProvider at runtime) */
+  --color-primary: #f4d03f;
+  --color-secondary: #d4af37;
+  --color-accent: #ff6b6b;
+  --color-bg-primary: #0a0a0a;
+  --color-bg-secondary: #1a1a1a;
+  --color-bg-tertiary: #1f1f1f;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #fafafa;
+  --color-text-muted: #d6d6d6;
+  --color-border: #383838;
+  --gradient-primary: linear-gradient(135deg, #f4d03f 0%, #ff9a56 100%);
+  --gradient-secondary: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  --gradient-accent: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+}
+
+@theme inline {
+  /* Map Tailwind color tokens to runtime CSS variables set by ThemeProvider */
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-background-primary: var(--color-bg-primary);
+  --color-background-secondary: var(--color-bg-secondary);
+  --color-background-tertiary: var(--color-bg-tertiary);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-border: var(--color-border);
+}
+
+html {
+  font-size: var(--base-font-size);
+}
+
+body {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-primary), sans-serif;
+  min-height: 100vh;
+}
+
+/* Hide native cursor on fine pointers, except on text inputs/areas where caret is useful */
+@media (pointer: fine) {
+  html, body { cursor: none; }
+  input, textarea { cursor: text; }
+  button, a, [role="button"], [data-cursor='interactive'] { cursor: none; }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
+}
+
+/* Selection */
+::selection {
+  background: var(--color-primary);
+  color: var(--color-bg-primary);
+}
+
+/* Focus styles */
+:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--border-radius-lg);
+  
+}
+
+/* Smooth transitions */
+* {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  cursor: none;
+}
+
+/* Animated custom cursor */
+@media (pointer: fine) {
+  .custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    will-change: transform;
+    mix-blend-mode: difference;
+  }
+
+  .custom-cursor-inner,
+  .custom-cursor-outer {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  .custom-cursor-inner {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    pointer-events: none;
+    
+  }
+
+  .custom-cursor-outer {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    /* border: 2px solid var(--color-primary); */
+    transition: transform 350ms ease;
+    opacity: 0.3;
+  }
+}
+
+/* Clients marquee: smooth infinite scroll, pause on hover */
+@keyframes clients-marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.clients-marquee {
+  animation: clients-marquee-x 20s linear infinite;
+}
+
+.clients-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Testimonials marquee: smooth infinite scroll, pause on hover */
+@keyframes testimonials-marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.testimonials-marquee {
+  animation: testimonials-marquee-x 30s linear infinite;
+}
+
+.testimonials-marquee:hover {
+  animation-play-state: paused;
+}
