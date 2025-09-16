@@ -77,18 +77,36 @@ The portfolio includes advanced link prefetching strategies for lightning-fast n
 
 ### Prefetch Configuration
 
-The prefetching is automatically configured in `next.config.ts`:
+Key optimizations are configured in `next.config.ts`:
 
 ```typescript
+import type { NextConfig } from 'next';
+
 const nextConfig: NextConfig = {
+  output: 'standalone',
   experimental: {
     optimizePackageImports: ['framer-motion', 'lucide-react'],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  // ... other optimizations
+  images: {
+    unoptimized: true, // required for static export compatibility
+  },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          { key: 'X-DNS-Prefetch-Control', value: 'on' },
+          { key: 'X-Frame-Options', value: 'DENY' },
+        ],
+      },
+    ];
+  },
 };
+
+export default nextConfig;
 ```
 
 For detailed prefetching documentation, see `src/docs/PREFETCH_IMPLEMENTATION.md`.
@@ -182,7 +200,6 @@ npm run dev
 - `npm run build` - Build for production with optimizations
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
-- `npm run export` - Export static site (if configured)
 
 ### Development Features
 
@@ -196,14 +213,13 @@ npm run dev
 
 ### Personal Information
 
-Edit the personal information in `src/data/personalInfo.ts` (centralized data source):
+Edit the personal information in `src/data/personalInfo.ts`:
 
 ```typescript
 export const personalInfo: PersonalInfo = {
   name: 'Your Name',
   title: 'Your Title',
   email: 'your@email.com',
-  phone: '+1 (123) 456-7890',
   location: 'Your City, State, Country',
   avatar: '/images/your-avatar.png',
   yearOfBirth: '1990',
@@ -280,42 +296,45 @@ const portfolioData = {
 
 ### Resume Data
 
-Update your education, experience, and skills in `src/app/resume/page.tsx`:
+Update your education, experience, and awards in `src/app/resume/page.tsx`:
 
 ```typescript
 const resumeData = {
   education: [
     {
-      title: 'Degree Title',
-      institution: 'University Name',
+      title: 'Degree or Program Title',
       period: 'Start Year — End Year',
-      description: 'Description...',
-      gpa: '3.8/4.0' // Optional
+      // Multiple bullet points supported
+      description: [
+        'Key course or focus area',
+        'Notable project or leadership role'
+      ]
     },
     // ... more education
   ],
   experience: [
     {
-      title: 'Job Title',
-      company: 'Company Name',
+      title: 'Role or Project Name',
       period: 'Start Year — End Year',
-      description: 'Job description...',
-      achievements: ['Achievement 1', 'Achievement 2']
+      description: 'One-line overview of responsibilities/impact',
+      // Optional fields depending on the role/project
+      Team_size: '3',
+      role: 'Your role (e.g., Tech Lead, Developer)',
+      contribution: [
+        'Contribution or responsibility 1',
+        'Contribution or responsibility 2'
+      ],
+      main_tech: 'Tech stack summary (e.g., Node.js, PostgreSQL, React)'
     },
     // ... more experience
   ],
-  skills: [
-    { name: 'Skill Name', level: 85 }, // level is percentage (0-100)
-    // ... more skills
-  ],
-  certifications: [
+  awards: [
     {
-      name: 'Certification Name',
-      issuer: 'Issuing Organization',
-      date: 'Month Year',
-      credentialId: 'Credential ID' // Optional
+      title: 'Award or Recognition',
+      period: 'Year',
+      description: 'Brief description of the award or context'
     },
-    // ... more certifications
+    // ... more awards
   ]
 };
 ```
@@ -432,10 +451,11 @@ The portfolio is fully responsive with breakpoints:
 
 ### Other Platforms
 
-Build the project and deploy the `out` folder:
+Build the project and run in standalone mode (Node runtime), or deploy the `.next/standalone` output (containerized is recommended):
 
 ```bash
 npm run build
+npm run start
 ```
 
 ## 🔧 Configuration
@@ -455,7 +475,7 @@ SMTP_HOST=smtp.yourprovider.com
 SMTP_PORT=587
 SMTP_USER=your_smtp_username
 SMTP_PASS=your_smtp_password
-SMTP_SECURE=false # true for port 465, false for others
+SMTP_SECURE=false # true for port 465, false or 0 for others
 SMTP_FROM_EMAIL=noreply@yourdomain.com
 SMTP_FROM_NAME=Portfolio Contact Form
 # Optional: override recipient (defaults to personalInfo.email)
@@ -469,6 +489,18 @@ SMTP_TO_EMAIL=your_inbox@yourdomain.com
 3. **Configure Environment Variables** in `.env.local` as shown above
 4. **Use a verified sender**: ensure `SMTP_FROM_EMAIL` is allowed by your provider
 5. **Test the Contact Form**: submit the form on `/contact` and check your inbox
+
+#### Contact API Details
+
+- **Endpoint**: `POST /api/contact`
+- **Body (JSON)**:
+  - `fullname` (string, required)
+  - `email` (string, required, valid email)
+  - `message` (string, required)
+- **Responses**:
+  - `200` `{ success: true, message: 'Email sent successfully', messageId: string }`
+  - `400` `{ error: 'All fields are required' | 'Invalid email format' }`
+  - `500` `{ error: 'SMTP not configured. Please contact the administrator.' | 'Email sender not configured. Please set SMTP_FROM_EMAIL.' | 'Failed to send email. Please try again later.' }`
 
 ### Next.js Configuration
 
