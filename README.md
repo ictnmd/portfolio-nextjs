@@ -14,6 +14,51 @@ A modern, responsive portfolio website built with Next.js 15, TypeScript, and Ta
 - **Performance**: Optimized images, code splitting, and prefetching strategies
 - **Development Tools**: Built-in prefetch monitoring for development
 
+## Table of Contents
+
+- [Project Structure](#project-structure)
+- [Performance & Prefetching](#-performance--prefetching)
+  - [Intelligent Link Prefetching](#intelligent-link-prefetching)
+  - [Performance Benefits](#performance-benefits)
+  - [Prefetch Configuration](#prefetch-configuration)
+- [Theme Customization](#-theme-customization)
+  - [Quick Theme Changes](#quick-theme-changes)
+  - [Creating Custom Themes](#creating-custom-themes)
+  - [CSS Variables](#css-variables)
+- [Development](#-development)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Available Scripts](#available-scripts)
+  - [Development Features](#development-features)
+- [Content Customization](#-content-customization)
+  - [Personal Information](#personal-information)
+  - [About Section](#about-section)
+  - [Portfolio Projects](#portfolio-projects)
+  - [Resume Data](#resume-data)
+  - [Technologies & Tools](#technologies--tools)
+- [Styling](#-styling)
+  - [Tailwind CSS Classes](#tailwind-css-classes)
+  - [Custom CSS](#custom-css)
+- [Responsive Design](#-responsive-design)
+- [Deployment](#-deployment)
+  - [Vercel (Recommended)](#vercel-recommended)
+  - [Other Platforms](#other-platforms)
+- [Configuration](#-configuration)
+  - [Environment Variables](#environment-variables)
+    - [Setting up SMTP for Contact Form](#setting-up-smtp-for-contact-form)
+    - [Contact API Details](#contact-api-details)
+  - [Next.js Configuration](#nextjs-configuration)
+- [Docker Deployment](#-docker-deployment)
+  - [Prerequisites](#prerequisites-1)
+  - [Building and Running with Docker](#building-and-running-with-docker)
+  - [Docker Features](#docker-features)
+  - [Environment Variables for Docker](#environment-variables-for-docker)
+  - [Health Check](#health-check)
+  - [Production Deployment](#production-deployment)
+- [License](#-license)
+- [Contributing](#-contributing)
+- [Support](#-support)
+
 ## 📁 Project Structure
 
 ```
