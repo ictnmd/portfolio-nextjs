@@ -117,6 +117,7 @@ function TechnologyCard({ tech }: TechnologyCardProps) {
                 loading='lazy'
                 priority={false}
                 fill
+                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
                 className="object-contain p-1"
               />
             </div>

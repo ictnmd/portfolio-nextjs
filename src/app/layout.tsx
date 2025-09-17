@@ -37,12 +37,12 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Font loading */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link 
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" 
           rel="stylesheet"
-        />
+        /> */}
         
         {/* Preload critical resources */}
         <link rel="preload" href="/images/my-avatar.png" as="image" type="image/png" />

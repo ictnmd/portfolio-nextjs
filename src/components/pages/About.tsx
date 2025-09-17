@@ -127,6 +127,7 @@ export function About({ aboutText, highlightText, services, testimonials, client
                         src={testimonial.avatar} 
                         alt={testimonial.name}
                         fill
+                        sizes="48px"
                         className="object-cover"
                       />
                     </div>
@@ -154,6 +155,7 @@ export function About({ aboutText, highlightText, services, testimonials, client
                         src={testimonial.avatar} 
                         alt={testimonial.name}
                         fill
+                        sizes="48px"
                         className="object-cover"
                       />
                     </div>
@@ -181,6 +183,7 @@ export function About({ aboutText, highlightText, services, testimonials, client
                   src={selectedTestimonial.avatar} 
                   alt={selectedTestimonial.name}
                   fill
+                  sizes="64px"
                   className="object-cover"
                 />
               </div>
@@ -223,6 +226,7 @@ export function About({ aboutText, highlightText, services, testimonials, client
                       src={client.logo} 
                       alt={client.name}
                       fill
+                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
                       className="object-contain transition-all"
                     />
                   </div>
@@ -245,6 +249,7 @@ export function About({ aboutText, highlightText, services, testimonials, client
                       src={client.logo} 
                       alt={client.name}
                       fill
+                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
                       className="object-contain transition-all"
                     />
                   </div>
