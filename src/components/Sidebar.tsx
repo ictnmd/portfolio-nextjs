@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Facebook, Twitter, Instagram, Github, Mail, MapPin, Calendar, Download } from 'lucide-react';
+import Image from 'next/image';
 import { PersonalInfo } from '@/data/personalInfo';
 
 type SidebarProps = PersonalInfo;
@@ -32,9 +33,11 @@ export function Sidebar({
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
-          <img 
+          <Image 
             src={avatar} 
             alt={name} 
+            width={128}
+            height={128}
             className="w-32 h-32 rounded-full mx-auto object-cover border-4 border-primary/20"
           />
           <div className="absolute inset-0 rounded-full bg-primary/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />

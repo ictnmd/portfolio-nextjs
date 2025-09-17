@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Eye, ChevronDown } from 'lucide-react';
+import Image from 'next/image';
 
 interface Project {
   id: string;
@@ -96,11 +97,14 @@ export function Portfolio({ projects }: PortfolioProps) {
                 className="block w-full"
               >
                 <div className="relative overflow-hidden rounded-xl mb-4 group-hover:shadow-lg transition-shadow">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
+                  <div className="relative w-full h-48">
+                    <Image 
+                      src={project.image} 
+                      alt={project.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <div className="bg-background-secondary text-primary p-3 rounded-lg">
                       <Eye className="w-6 h-6" />

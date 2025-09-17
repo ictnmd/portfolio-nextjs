@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Quote, X, Palette, Code2, Smartphone, GitBranch, Search, Cog, Cpu, Briefcase } from 'lucide-react';
+import Image from 'next/image';
 
 interface Service {
   icon: string;
@@ -121,11 +122,14 @@ export function About({ aboutText, highlightText, services, testimonials, client
                   onClick={() => setSelectedTestimonial(testimonial)}
                 >
                   <div className="flex items-start gap-4">
-                    <img 
-                      src={testimonial.avatar} 
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-xl object-cover"
-                    />
+                    <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
+                      <Image 
+                        src={testimonial.avatar} 
+                        alt={testimonial.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
                     <div className="flex-1">
                       <h4 className="text-text-secondary font-medium mb-2">{testimonial.name}</h4>
                       <p className="text-text-muted text-sm leading-relaxed line-clamp-3">
@@ -145,11 +149,14 @@ export function About({ aboutText, highlightText, services, testimonials, client
                   onClick={() => setSelectedTestimonial(testimonial)}
                 >
                   <div className="flex items-start gap-4">
-                    <img 
-                      src={testimonial.avatar} 
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-xl object-cover"
-                    />
+                    <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
+                      <Image 
+                        src={testimonial.avatar} 
+                        alt={testimonial.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
                     <div className="flex-1">
                       <h4 className="text-text-secondary font-medium mb-2">{testimonial.name}</h4>
                       <p className="text-text-muted text-sm leading-relaxed line-clamp-3">
@@ -169,11 +176,14 @@ export function About({ aboutText, highlightText, services, testimonials, client
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
           <div className="bg-background-secondary border border-border rounded-xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
             <div className="flex items-start gap-4 mb-4">
-              <img 
-                src={selectedTestimonial.avatar} 
-                alt={selectedTestimonial.name}
-                className="w-16 h-16 rounded-xl object-cover"
-              />
+              <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                <Image 
+                  src={selectedTestimonial.avatar} 
+                  alt={selectedTestimonial.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <div className="flex-1">
                 <h4 className="text-text-secondary text-xl font-medium mb-1">{selectedTestimonial.name}</h4>
                 <time className="text-text-muted text-sm">{selectedTestimonial.date}</time>
@@ -208,11 +218,14 @@ export function About({ aboutText, highlightText, services, testimonials, client
                   className="min-w-32 h-16 rounded-lg flex items-center justify-center transition-colors border border-border hover:border-primary/20"
                   style={{ backgroundColor: client.bgColor }}
                 >
-                  <img 
-                    src={client.logo} 
-                    alt={client.name}
-                    className="max-w-24 max-h-12 object-contain transition-all"
-                  />
+                  <div className="relative w-24 h-12">
+                    <Image 
+                      src={client.logo} 
+                      alt={client.name}
+                      fill
+                      className="object-contain transition-all"
+                    />
+                  </div>
                 </a>
               ))}
             </div>
@@ -227,11 +240,14 @@ export function About({ aboutText, highlightText, services, testimonials, client
                   className="min-w-32 h-16 rounded-lg flex items-center justify-center transition-colors border border-border hover:border-primary/20"
                   style={{ backgroundColor: client.bgColor }}
                 >
-                  <img 
-                    src={client.logo} 
-                    alt={client.name}
-                    className="max-w-24 max-h-12 object-contain transition-all"
-                  />
+                  <div className="relative w-24 h-12">
+                    <Image 
+                      src={client.logo} 
+                      alt={client.name}
+                      fill
+                      className="object-contain transition-all"
+                    />
+                  </div>
                 </a>
               ))}
             </div>

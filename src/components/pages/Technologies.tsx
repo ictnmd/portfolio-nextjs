@@ -2,6 +2,7 @@
 
 import { Monitor, Server, Database, Wrench, MoreHorizontal } from 'lucide-react';
 import { useRef, useState } from 'react';
+import Image from 'next/image';
 
 interface Technology {
   name: string;
@@ -39,7 +40,7 @@ interface TechnologyCardProps {
 
 function TechnologyCard({ tech }: TechnologyCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const logoRef = useRef<HTMLImageElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
@@ -93,11 +94,9 @@ function TechnologyCard({ tech }: TechnologyCardProps) {
           onMouseLeave={handleMouseLeave}
         >
           <div className="relative h-3/5">
-            <img 
+            <div 
               ref={logoRef}
-              src={tech.logo} 
-              alt={tech.name}
-              className="w-full h-full object-contain p-2"
+              className="w-full h-20 object-contain"
               style={{
                 transform: isHovered 
                   ? `perspective(1000px) rotateX(${mousePosition.y * 1.6}deg) rotateY(${mousePosition.x * 1.6}deg) scale(1.15) translateY(12px) translateZ(0)`
@@ -111,7 +110,14 @@ function TechnologyCard({ tech }: TechnologyCardProps) {
                 willChange: 'transform, filter',
                 opacity: 1
               }}
-            />  
+            >
+              <Image 
+                src={tech.logo} 
+                alt={tech.name}
+                fill
+                className="object-contain p-1"
+              />
+            </div>
           </div>
           
           <div className="h-2/5 flex items-center justify-center p-2">
