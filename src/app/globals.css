@@ -1,9 +1,8 @@
-@tailwind base;
-@tailwind components;
+@import "tailwindcss";
 @tailwind utilities;
 
 :root {
-  --font-primary: 'Dongle', sans-serif;
+  --font-primary: 'Poppins', sans-serif;
   --base-font-size: 18px;
   /* Initial theme values (will be overridden by ThemeProvider at runtime) */
   --color-primary: #f4d03f;

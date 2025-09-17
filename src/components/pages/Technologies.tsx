@@ -114,6 +114,8 @@ function TechnologyCard({ tech }: TechnologyCardProps) {
               <Image 
                 src={tech.logo} 
                 alt={tech.name}
+                loading='lazy'
+                priority={false}
                 fill
                 className="object-contain p-1"
               />

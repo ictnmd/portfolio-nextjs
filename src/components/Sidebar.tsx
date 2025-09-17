@@ -34,6 +34,9 @@ export function Sidebar({
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
           <Image 
+            fetchPriority='high'
+            loading='eager'
+            priority={true}
             src={avatar} 
             alt={name} 
             width={128}

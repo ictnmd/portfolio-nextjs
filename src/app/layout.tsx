@@ -2,28 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider as ThemeContextProvider } from "@/contexts/ThemeContext";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import dynamic from "next/dynamic";
-
-// Dynamically import client components to reduce initial bundle size
-const PageTransition = dynamic(() => import("@/components/PageTransition"), {
-  ssr: false,
-  loading: () => null
-});
-
-const ClientCurvedBottomNav = dynamic(() => import("@/components/ClientCurvedBottomNav"), {
-  ssr: false,
-  loading: () => null
-});
-
-const AnimatedCursor = dynamic(() => import("@/components/AnimatedCursor"), {
-  ssr: false,
-  loading: () => null
-});
-
-const PrefetchMonitor = dynamic(() => import("@/components/PrefetchMonitor").then(mod => ({ default: mod.PrefetchMonitor })), {
-  ssr: false,
-  loading: () => null
-});
+import PageTransition from "@/components/PageTransition";
+import ClientCurvedBottomNav from "@/components/ClientCurvedBottomNav";
+import AnimatedCursor from "@/components/AnimatedCursor";
+import { PrefetchMonitor } from "@/components/PrefetchMonitor";
 // Footer moved into the Sidebar; no longer rendered at the root layout level.
 // Navbar is included inside `MainPage` for section-based navigation on the home screen.
 
@@ -32,7 +14,6 @@ export const metadata: Metadata = {
   description: "A modern portfolio website built with Next.js and Tailwind CSS",
   keywords: ["portfolio", "software engineer", "web development", "fullstack", "react", "nextjs"],
   authors: [{ name: "Duc Nguyen" }],
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
   openGraph: {
     title: "Portfolio - Personal Website",
@@ -40,6 +21,11 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
   },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -50,21 +36,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Optimize font loading */}
+        {/* Font loading */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link 
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" 
-          rel="preload"
-          as="style"
-          onLoad="this.onload=null;this.rel='stylesheet'"
+          rel="stylesheet"
         />
-        <noscript>
-          <link 
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" 
-            rel="stylesheet" 
-          />
-        </noscript>
         
         {/* Preload critical resources */}
         <link rel="preload" href="/images/my-avatar.png" as="image" type="image/png" />

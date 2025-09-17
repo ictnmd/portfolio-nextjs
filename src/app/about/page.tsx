@@ -1,14 +1,6 @@
-import dynamic from 'next/dynamic';
+import { About } from '@/components/pages/About';
+import { Sidebar } from '@/components/Sidebar';
 import { personalInfo } from '@/data/personalInfo';
-
-// Dynamically import components to reduce initial bundle size
-const About = dynamic(() => import('@/components/pages/About').then(mod => ({ default: mod.About })), {
-  loading: () => <div className="animate-pulse bg-background-secondary rounded-xl p-6 h-96" />
-});
-
-const Sidebar = dynamic(() => import('@/components/Sidebar').then(mod => ({ default: mod.Sidebar })), {
-  loading: () => <div className="animate-pulse bg-background-secondary rounded-xl p-6 h-96" />
-});
 
 // Sample data - in a real app, this would come from a CMS or API
 const aboutData = {
