@@ -61,7 +61,7 @@ const config: Config = {
         border: 'var(--color-border)',
       },
       fontFamily: {
-        sans: ['Dongle', 'var(--font-primary)', 'sans-serif'],
+        sans: ['var(--font-primary)', 'system-ui', 'sans-serif'],
       },
       fontWeight: {
         light: 'var(--font-weight-light)',

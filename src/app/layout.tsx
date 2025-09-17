@@ -6,8 +6,7 @@ import PageTransition from "@/components/PageTransition";
 import ClientCurvedBottomNav from "@/components/ClientCurvedBottomNav";
 import AnimatedCursor from "@/components/AnimatedCursor";
 import { PrefetchMonitor } from "@/components/PrefetchMonitor";
-// Footer moved into the Sidebar; no longer rendered at the root layout level.
-// Navbar is included inside `MainPage` for section-based navigation on the home screen.
+
 
 export const metadata: Metadata = {
   title: "Portfolio - Personal Website",
@@ -37,12 +36,14 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Font loading */}
-        {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link 
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" 
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap"
           rel="stylesheet"
-        /> */}
+          id="google-fonts-css"
+        />
+
         
         {/* Preload critical resources */}
         <link rel="preload" href="/images/my-avatar.png" as="image" type="image/png" />
@@ -62,19 +63,18 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         
-        {/* Critical CSS inline for faster rendering */}
+        {/* Critical CSS inline using runtime variables */}
         <style dangerouslySetInnerHTML={{
           __html: `
-            html { font-size: 18px; }
-            body { 
-              background: #0a0a0a; 
-              color: #ffffff; 
-              font-family: 'Dongle', sans-serif; 
-              min-height: 100vh; 
-              margin: 0; 
+            html { font-size: var(--base-font-size); }
+            body {
+              background: var(--color-bg-primary);
+              color: var(--color-text-primary);
+              font-family: var(--font-primary), sans-serif;
+              min-height: 100vh;
+              margin: 0;
               padding: 0;
             }
-            .font-sans { font-family: 'Poppins', sans-serif; }
             .antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
           `
         }} />
