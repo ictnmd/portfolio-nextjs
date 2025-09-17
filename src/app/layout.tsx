@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider as ThemeContextProvider } from "@/contexts/ThemeContext";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import PageTransition from "@/components/PageTransition";
-import ClientCurvedBottomNav from "@/components/ClientCurvedBottomNav";
-import AnimatedCursor from "@/components/AnimatedCursor";
-import { PrefetchMonitor } from "@/components/PrefetchMonitor";
+import AppShellClient from "@/components/AppShellClient";
+
 
 
 export const metadata: Metadata = {
@@ -35,33 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Font loading */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap"
-          rel="stylesheet"
-          id="google-fonts-css"
-        />
-
-        
-        {/* Preload critical resources */}
-        <link rel="preload" href="/images/my-avatar.png" as="image" type="image/png" />
-        <link rel="preload" href="/images/avatar-1.png" as="image" type="image/png" />
-        <link rel="preload" href="/images/avatar-2.png" as="image" type="image/png" />
-        <link rel="preload" href="/images/avatar-3.png" as="image" type="image/png" />
-        <link rel="preload" href="/images/avatar-4.png" as="image" type="image/png" />
-        
-        {/* Prefetch critical routes */}
-        <link rel="prefetch" href="/about" />
-        <link rel="prefetch" href="/portfolio" />
-        <link rel="prefetch" href="/resume" />
-        <link rel="prefetch" href="/technologies" />
-        <link rel="prefetch" href="/contact" />
-        
-        {/* DNS prefetch for external resources */}
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        {/* Using next/font with display swap; removed external font links and aggressive preloads/prefetches */}
         
         {/* Critical CSS inline using runtime variables */}
         <style dangerouslySetInnerHTML={{
@@ -83,12 +55,9 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <ThemeContextProvider>
           <ThemeProvider>
-            <PageTransition>
+            <AppShellClient>
               {children}
-            </PageTransition>
-            <ClientCurvedBottomNav />
-            <AnimatedCursor />
-            <PrefetchMonitor />
+            </AppShellClient>
           </ThemeProvider>
         </ThemeContextProvider>
       </body>

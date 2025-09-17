@@ -11,7 +11,7 @@ A modern, responsive portfolio website built with Next.js 15, TypeScript, and Ta
 - **Smooth Animations**: Framer Motion for enhanced user experience
 - **Component-Based**: Modular React components for easy maintenance
 - **Type Safety**: Full TypeScript support with shared data interfaces
-- **Performance**: Optimized images, code splitting, and prefetching strategies
+- **Performance**: Optimized images, code splitting, smart prefetching, and lazy client-only UI
 - **Development Tools**: Built-in prefetch monitoring for development
 
 ## Table of Contents
@@ -20,6 +20,7 @@ A modern, responsive portfolio website built with Next.js 15, TypeScript, and Ta
 - [Performance & Prefetching](#-performance--prefetching)
   - [Intelligent Link Prefetching](#intelligent-link-prefetching)
   - [Performance Benefits](#performance-benefits)
+  - [Other Optimizations](#other-optimizations)
   - [Prefetch Configuration](#prefetch-configuration)
 - [Theme Customization](#-theme-customization)
   - [Quick Theme Changes](#quick-theme-changes)
@@ -71,7 +72,7 @@ portfolio-nextjs/
 │   │   ├── technologies/       # Technologies page
 │   │   ├── contact/            # Contact page
 │   │   ├── globals.css         # Global styles
-│   │   ├── layout.tsx          # Root layout with prefetching
+│   │   ├── layout.tsx          # Root layout using client shell wrapper
 │   │   └── page.tsx            # Home page
 │   ├── components/             # React components
 │   │   ├── pages/              # Page components
@@ -88,6 +89,8 @@ portfolio-nextjs/
 │   │   ├── PrefetchMonitor.tsx # Development prefetch monitoring
 │   │   ├── ThemeProvider.tsx   # Theme CSS variables provider
 │   │   └── ThemeSwitcher.tsx   # Theme switcher component
+│   │   ├── PageTransition.tsx  # Page transition animations (theme-aware color)
+│   │   └── AppShellClient.tsx  # Client-only wrapper that lazy-loads animated UI
 │   ├── data/                   # Shared data sources
 │   │   └── personalInfo.ts     # Centralized personal information
 │   ├── config/                 # Configuration files
@@ -108,7 +111,6 @@ portfolio-nextjs/
 
 The portfolio includes advanced link prefetching strategies for lightning-fast navigation:
 
-- **Static Prefetching**: Critical routes are prefetched in the HTML head
 - **Hover Prefetching**: Routes are prefetched when users hover over navigation items
 - **Smart Prefetching**: Multiple strategies (hover, visible, idle) for optimal performance
 - **Development Monitoring**: Real-time prefetch tracking in development mode
@@ -119,6 +121,12 @@ The portfolio includes advanced link prefetching strategies for lightning-fast n
 - **User Experience**: Instant route transitions
 - **Smart Loading**: Only prefetches when users show intent
 - **Bundle Optimization**: Package import optimization and tree shaking
+
+### Other Optimizations
+
+- **Lazy animated UI**: `PageTransition`, `CurvedBottomNav`, `AnimatedCursor`, and `PrefetchMonitor` are loaded inside a client-only wrapper (`AppShellClient`) so they don't affect server render or initial TTFB.
+- **Global CSS slimming**: Removed universal `*` transitions and cursor overrides; switched to `:focus-visible` for better a11y and lower style recalcs.
+- **Theme-aware transitions**: `PageTransition` gradient and particle color use `var(--color-primary)`, matching the active theme from `ThemeSwitcher`.
 
 ### Prefetch Configuration
 

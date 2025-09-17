@@ -59,7 +59,7 @@ export function PageTransition({ children }: PageTransitionProps) {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="fixed inset-0 z-40 pointer-events-none"
             style={{
-              background: 'linear-gradient(135deg, rgba(244, 208, 63, 0.2) 0%, rgba(244, 208, 63, 0.1) 50%, transparent 100%)'
+              background: 'linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 20%, transparent) 0%, color-mix(in srgb, var(--color-primary) 10%, transparent) 50%, transparent 100%)'
             }}
           />
         )}
@@ -107,7 +107,7 @@ export function PageTransition({ children }: PageTransitionProps) {
                   ease: "easeOut"
                 }}
                 className="absolute w-2 h-2 rounded-full"
-                style={{ backgroundColor: '#f4d03f' }}
+                style={{ backgroundColor: 'var(--color-primary)' }}
               />
             ))}
           </div>
