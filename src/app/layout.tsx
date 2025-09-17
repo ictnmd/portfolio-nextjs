@@ -2,16 +2,44 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider as ThemeContextProvider } from "@/contexts/ThemeContext";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import PageTransition from "@/components/PageTransition";
-import ClientCurvedBottomNav from "@/components/ClientCurvedBottomNav";
-import AnimatedCursor from "@/components/AnimatedCursor";
-import { PrefetchMonitor } from "@/components/PrefetchMonitor";
+import dynamic from "next/dynamic";
+
+// Dynamically import client components to reduce initial bundle size
+const PageTransition = dynamic(() => import("@/components/PageTransition"), {
+  ssr: false,
+  loading: () => null
+});
+
+const ClientCurvedBottomNav = dynamic(() => import("@/components/ClientCurvedBottomNav"), {
+  ssr: false,
+  loading: () => null
+});
+
+const AnimatedCursor = dynamic(() => import("@/components/AnimatedCursor"), {
+  ssr: false,
+  loading: () => null
+});
+
+const PrefetchMonitor = dynamic(() => import("@/components/PrefetchMonitor").then(mod => ({ default: mod.PrefetchMonitor })), {
+  ssr: false,
+  loading: () => null
+});
 // Footer moved into the Sidebar; no longer rendered at the root layout level.
 // Navbar is included inside `MainPage` for section-based navigation on the home screen.
 
 export const metadata: Metadata = {
   title: "Portfolio - Personal Website",
   description: "A modern portfolio website built with Next.js and Tailwind CSS",
+  keywords: ["portfolio", "software engineer", "web development", "fullstack", "react", "nextjs"],
+  authors: [{ name: "Duc Nguyen" }],
+  viewport: "width=device-width, initial-scale=1",
+  robots: "index, follow",
+  openGraph: {
+    title: "Portfolio - Personal Website",
+    description: "A modern portfolio website built with Next.js and Tailwind CSS",
+    type: "website",
+    locale: "en_US",
+  },
 };
 
 export default function RootLayout({
@@ -22,12 +50,28 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Optimize font loading */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link 
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" 
-          rel="stylesheet" 
+          rel="preload"
+          as="style"
+          onLoad="this.onload=null;this.rel='stylesheet'"
         />
+        <noscript>
+          <link 
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" 
+            rel="stylesheet" 
+          />
+        </noscript>
+        
+        {/* Preload critical resources */}
+        <link rel="preload" href="/images/my-avatar.png" as="image" type="image/png" />
+        <link rel="preload" href="/images/avatar-1.png" as="image" type="image/png" />
+        <link rel="preload" href="/images/avatar-2.png" as="image" type="image/png" />
+        <link rel="preload" href="/images/avatar-3.png" as="image" type="image/png" />
+        <link rel="preload" href="/images/avatar-4.png" as="image" type="image/png" />
         
         {/* Prefetch critical routes */}
         <link rel="prefetch" href="/about" />
@@ -35,6 +79,27 @@ export default function RootLayout({
         <link rel="prefetch" href="/resume" />
         <link rel="prefetch" href="/technologies" />
         <link rel="prefetch" href="/contact" />
+        
+        {/* DNS prefetch for external resources */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        
+        {/* Critical CSS inline for faster rendering */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            html { font-size: 18px; }
+            body { 
+              background: #0a0a0a; 
+              color: #ffffff; 
+              font-family: 'Dongle', sans-serif; 
+              min-height: 100vh; 
+              margin: 0; 
+              padding: 0;
+            }
+            .font-sans { font-family: 'Poppins', sans-serif; }
+            .antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+          `
+        }} />
         
       </head>
       <body className="font-sans antialiased">
